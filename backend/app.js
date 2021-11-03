@@ -9,13 +9,7 @@ const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
 const userRouter = require('./routes/user');
-const postRouter = require('./routes/post');
-const ticketRouter = require('./routes/ticket');
-const adminRouter = require('./routes/admin/user');
-const notificationRouter = require('./routes/notification');
-const locationRouter = require('./routes/location');
-const votedPostsRouter = require('./routes/vote');
-const testRouter = require('./routes/testRouter');
+
 
 const globalErrorHandler = require('./controllers/errorController');
 const app = express();
