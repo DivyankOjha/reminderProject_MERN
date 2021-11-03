@@ -1,4 +1,4 @@
-const converter = require('json-2-csv');
+
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -8,10 +8,10 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
-const userRouter = require('./routes/user');
+const reminderRouter = require('./routes/reminder');
 
 
-const globalErrorHandler = require('./controllers/errorController');
+// const globalErrorHandler = require('./controllers/errorController');
 const app = express();
 
 app.use((req, res, next) => {
@@ -76,9 +76,7 @@ app.use((req, res, next) => {
 });
 
 // 3) ROUTES
-
-
-// app.use('/api/voted', votedPostsRouter);
+ app.use('/api/reminder', reminderRouter);
 
 // app.use(globalErrorHandler);
 
