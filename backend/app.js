@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const dotenv = require('dotenv');
+
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -32,21 +34,22 @@ app.use((req, res, next) => {
 //Set security HTTP headers
 app.use(helmet());
 
+dotenv.config({ path: './config.env' });
 
 // development logging
 if (process.env.NODE_ENV === 'production') {  //development
-  app.use(morgan());
+  app.use(morgan('short'));
 }
 
-//app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 // Limit requests from same API
-// const limiter = rateLimit({
-//   max: 1000,
-//   windowMs: 60 * 60 * 1000,
-//   message: 'Too many requests from this IP, please try again in an hour!',
-// });
-// app.use('/api', limiter);
+const limiter = rateLimit({
+  max: 1000,
+  windowMs: 60 * 60 * 1000,
+  message: 'Too many requests from this IP, please try again in an hour!',
+});
+app.use('/api', limiter);
 
 //body parser - reading data from the body into req.body
 
